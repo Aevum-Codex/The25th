@@ -1,0 +1,3 @@
+import { z } from "zod"
+
+export default z.object({ "_id": z.union([z.any(), z.null()]).describe("MongoDB document ObjectID").default(null), "author_id": z.union([z.object({ "id": z.string(), "collection": z.string() }), z.record(z.any())]), "description": z.string(), "tags": z.array(z.string()).default([]), "media": z.array(z.any()).default([]), "created_at": z.string().datetime({ offset: true }).optional(), "updated_at": z.string().datetime({ offset: true }).optional(), "is_published": z.boolean().default(false), "is_memory": z.boolean().default(false), "archived": z.boolean().default(false), "visible_to": z.array(z.any()).default([]) })
