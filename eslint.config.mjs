@@ -6,28 +6,28 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
+	baseDirectory: __dirname,
 });
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-  {
-    ignores: [
-      "node_modules/**",
-      ".next/**",
-      "out/**",
-      "build/**",
-      "next-env.d.ts",
-    ],
-  },
-  {
-    rules: {
-      "indent": ["error", "tab"],  // Enforce tabs for indentation
-      "no-mixed-spaces-and-tabs": "error",  // Prevent mixing spaces and tabs
-      "quotes": ["error", "double"],  // Enforce double quotes for strings
-      "jsx-quotes": ["error", "prefer-double"],  // Enforce double quotes in JSX
-    },
-  },
+	...compat.extends("next/core-web-vitals", "next/typescript"),
+	{
+		ignores: [
+			"node_modules/**",
+			".next/**",
+			"out/**",
+			"build/**",
+			"next-env.d.ts",
+		],
+	},
+	{
+		rules: {
+			"indent": ["error", "tab"],  // Enforce tabs for indentation
+			"no-mixed-spaces-and-tabs": "error",  // Prevent mixing spaces and tabs
+			"quotes": ["error", "double"],  // Enforce double quotes for strings
+			"jsx-quotes": ["error", "prefer-double"],  // Enforce double quotes in JSX
+		},
+	},
 ];
 
 export default eslintConfig;

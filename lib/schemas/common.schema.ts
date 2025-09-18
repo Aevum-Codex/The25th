@@ -8,10 +8,10 @@ export const MediaTypeSchema = z.enum(["IMAGE", "VIDEO", "AUDIO"])
 
 // Media reference schema for attachments
 export const MediaRefSchema = z.object({ 
-  "url": z.string().url().min(1).max(2083), 
-  "kind": MediaTypeSchema.default("IMAGE"), 
-  "alt": z.union([z.string(), z.null()]).default(null), 
-  "metadata": z.union([z.record(z.string(), z.unknown()), z.null()]).default(null) 
+	"url": z.string().url().min(1).max(2083), 
+	"kind": MediaTypeSchema.default("IMAGE"), 
+	"alt": z.union([z.string(), z.null()]).default(null), 
+	"metadata": z.union([z.record(z.string(), z.unknown()), z.null()]).default(null) 
 })
 
 // User type enumeration
