@@ -20,6 +20,14 @@ const eslintConfig = [
       "next-env.d.ts",
     ],
   },
+  {
+    rules: {
+      "indent": ["error", "tab"],  // Enforce tabs for indentation
+      "no-mixed-spaces-and-tabs": "error",  // Prevent mixing spaces and tabs
+      "quotes": ["error", "double"],  // Enforce double quotes for strings
+      "jsx-quotes": ["error", "prefer-double"],  // Enforce double quotes in JSX
+    },
+  },
 ];
 
 export default eslintConfig;

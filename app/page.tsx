@@ -1,34 +1,26 @@
-import clientPromise from "@/lib/mongo";
+"use client";
 
-export default async function Home() {
-  const client = await clientPromise;
-  const db = client.db(process.env.DB_NAME);
-  const posts = await db.collection("posts").find({}).sort({ created_at: -1 }).limit(20).toArray();
+import Feed from "@/components/home/feed";
+import Landing from "@/components/home/landing";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
-  interface BaseObject {
-    _id: { toString: () => string };
-    created_at: string;
-    content: string;
-  }
+export default function Home() {
+  // Dummy auth state for demonstration purposes
+  const [authenticated, setAuthenticated] = useState(false);
 
   return (
     <main className="p-6 space-y-4">
-      <h1 className="text-2xl font-bold">Slambook</h1>
-      <form action="/api/posts" method="post" className="space-y-2">
-        <input name="author_id" placeholder="author_id (ObjectId string)" className="border p-2 block w-full" />
-        <textarea name="content" placeholder="Say hi..." className="border p-2 block w-full" />
-        <button className="border px-4 py-2">Create post</button>
-      </form>
-
-      <ul className="space-y-3">
-        {posts.map((p: any ) => (
-          <li key={p._id} className="border p-3 rounded">
-            <div className="text-sm opacity-70">{new Date(p.created_at).toLocaleString()}</div>
-            <div className="font-medium">{p.content}</div>
-            <div className="text-xs break-all opacity-60">_id: {p._id.toString()}</div>
-          </li>
-        ))}
-      </ul>
+      <h1 className="text-2xl font-bold">The 25th <Button variant={authenticated ? "default" : "outline"} id="dummy-auth-toggle" onClick={() => setAuthenticated(!authenticated)}>{authenticated ? "Logout" : "Login"}</Button></h1>
+      {authenticated ? (
+        <div id="feed-container" className="space-y-4">
+          <Feed />
+        </div>
+      ) : (
+        <div id="landing-container" className="space-y-4">
+          <Landing />
+        </div>
+      )}
     </main>
   );
 }
