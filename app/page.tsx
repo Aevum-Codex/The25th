@@ -10,14 +10,14 @@ export default function Home() {
 	const [authenticated, setAuthenticated] = useState(false);
 
 	return (
-		<main className="p-6 space-y-4">
+		<main>
 			<h1 className="text-2xl font-bold">The 25th <Button variant={authenticated ? "default" : "outline"} id="dummy-auth-toggle" onClick={() => setAuthenticated(!authenticated)}>{authenticated ? "Logout" : "Login"}</Button></h1>
 			{authenticated ? (
-				<div id="feed-container" className="space-y-4">
+				<div id="feed-container">
 					<Feed />
 				</div>
 			) : (
-				<div id="landing-container" className="space-y-4">
+				<div id="landing-container w-full">
 					<Landing />
 				</div>
 			)}
