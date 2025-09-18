@@ -38,7 +38,9 @@ export async function POST(
 
 	const parsed = CommentSchema.safeParse(body);
 	if (!parsed.success) {
-		return new Response(JSON.stringify(parsed.error.format()), { status: 400 });
+		return new Response(JSON.stringify(parsed.error.format()), {
+			status: 400,
+		});
 	}
 
 	const client = await clientPromise;

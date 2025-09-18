@@ -10,7 +10,11 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-	...compat.extends("next/core-web-vitals", "next/typescript"),
+	...compat.extends(
+		"next/core-web-vitals",
+		"next/typescript",
+		"plugin:prettier/recommended"
+	),
 	{
 		ignores: [
 			"node_modules/**",
@@ -22,10 +26,10 @@ const eslintConfig = [
 	},
 	{
 		rules: {
-			"indent": ["error", "tab"],  // Enforce tabs for indentation
-			"no-mixed-spaces-and-tabs": "error",  // Prevent mixing spaces and tabs
-			"quotes": ["error", "double"],  // Enforce double quotes for strings
-			"jsx-quotes": ["error", "prefer-double"],  // Enforce double quotes in JSX
+			"prettier/prettier": "error", // Use Prettier for formatting
+			"no-mixed-spaces-and-tabs": "error", // Prevent mixing spaces and tabs
+			quotes: ["error", "double"], // Enforce double quotes for strings
+			"jsx-quotes": ["error", "prefer-double"], // Enforce double quotes in JSX
 		},
 	},
 ];

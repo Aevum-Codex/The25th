@@ -11,7 +11,16 @@ export default function Home() {
 
 	return (
 		<main>
-			<h1 className="text-2xl font-bold">The 25th <Button variant={authenticated ? "default" : "outline"} id="dummy-auth-toggle" onClick={() => setAuthenticated(!authenticated)}>{authenticated ? "Logout" : "Login"}</Button></h1>
+			<h1 className="text-2xl font-bold">
+				The 25th{" "}
+				<Button
+					variant={authenticated ? "default" : "outline"}
+					id="dummy-auth-toggle"
+					onClick={() => setAuthenticated(!authenticated)}
+				>
+					{authenticated ? "Logout" : "Login"}
+				</Button>
+			</h1>
 			{authenticated ? (
 				<div id="feed-container">
 					<Feed />

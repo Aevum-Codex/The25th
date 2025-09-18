@@ -1,6 +1,9 @@
 import { cn } from "@/lib/utils";
 
-export default function Feed({ className, ...props }: React.ComponentProps<"div">) {
+export default function Feed({
+	className,
+	...props
+}: React.ComponentProps<"div">) {
 	return (
 		<div
 			data-slot="feed"
@@ -10,5 +13,5 @@ export default function Feed({ className, ...props }: React.ComponentProps<"div"
 			)}
 			{...props}
 		/>
-	)
+	);
 }

@@ -21,7 +21,9 @@ export async function POST(req: Request) {
 	const parsed = PostSchema.safeParse(body);
 
 	if (!parsed.success) {
-		return new Response(JSON.stringify(parsed.error.format()), { status: 400 });
+		return new Response(JSON.stringify(parsed.error.format()), {
+			status: 400,
+		});
 	}
 
 	const data = parsed.data as z.infer<typeof PostSchema>;
@@ -30,7 +32,13 @@ export async function POST(req: Request) {
 
 	// Convert author_id to ObjectId if your schema holds object ids as strings client-side
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const authorId = typeof (data as any).author_id === "string" ? new ObjectId((data as any).author_id) : (data as any).author_id;
+	function getAuthorId(data: any): ObjectId {
+		return typeof data.author_id === "string"
+			? new ObjectId(data.author_id)
+			: data.author_id;
+	}
+
+	const authorId = getAuthorId(data);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const doc: any = {

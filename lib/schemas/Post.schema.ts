@@ -1,4 +1,39 @@
-import { z } from "zod"
-import { MediaRefSchema, PostTypeSchema, PydanticObjectIdSchema, UserTypeSchema } from "./common.schema"
+import { z } from "zod";
+import {
+	MediaRefSchema,
+	PostTypeSchema,
+	PydanticObjectIdSchema,
+	UserTypeSchema,
+} from "./common.schema";
 
-export default z.object({ "_id": z.union([PydanticObjectIdSchema, z.null()]).optional(), "author_id": z.union([z.object({ "id": z.string(), "collection": z.string() }), z.record(z.string(), z.unknown())]), "post_type": PostTypeSchema, "description": z.string(), "media": z.array(MediaRefSchema).default([]), "post_date": z.union([z.string().datetime({ offset: true }), z.null()]).optional(), "tags": z.array(z.string()).default([]), "created_at": z.string().datetime({ offset: true }).optional(), "updated_at": z.string().datetime({ offset: true }).optional(), "is_published": z.boolean().default(false).optional(), "is_deleted": z.boolean().default(false).optional(), "archived": z.boolean().default(false).optional(), "blacklist": z.array(z.union([z.object({ "id": z.string(), "collection": z.string() }), z.record(z.string(), z.unknown())])).default([]), "blacklist_categories": z.array(UserTypeSchema).default([]), "metadata": z.union([z.record(z.string(), z.unknown()), z.null()]).optional(), "reaction_count": z.number().int().default(0).optional(), "comment_count": z.number().int().default(0).optional() })
+export default z.object({
+	_id: z.union([PydanticObjectIdSchema, z.null()]).optional(),
+	author_id: z.union([
+		z.object({ id: z.string(), collection: z.string() }),
+		z.record(z.string(), z.unknown()),
+	]),
+	post_type: PostTypeSchema,
+	description: z.string(),
+	media: z.array(MediaRefSchema).default([]),
+	post_date: z
+		.union([z.string().datetime({ offset: true }), z.null()])
+		.optional(),
+	tags: z.array(z.string()).default([]),
+	created_at: z.string().datetime({ offset: true }).optional(),
+	updated_at: z.string().datetime({ offset: true }).optional(),
+	is_published: z.boolean().default(false).optional(),
+	is_deleted: z.boolean().default(false).optional(),
+	archived: z.boolean().default(false).optional(),
+	blacklist: z
+		.array(
+			z.union([
+				z.object({ id: z.string(), collection: z.string() }),
+				z.record(z.string(), z.unknown()),
+			])
+		)
+		.default([]),
+	blacklist_categories: z.array(UserTypeSchema).default([]),
+	metadata: z.union([z.record(z.string(), z.unknown()), z.null()]).optional(),
+	reaction_count: z.number().int().default(0).optional(),
+	comment_count: z.number().int().default(0).optional(),
+});

@@ -10,7 +10,7 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 	for (let i = 0; i < imageCount; i++) {
 		imageLinks.push(`${imageGenerationAPI}?random=${i}&sig=${i}`);
 	}
-	
+
 	return (
 		<div
 			data-slot="landing"
@@ -22,7 +22,7 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 				backgroundImage: `url(${bgImage})`,
 				backgroundSize: "cover",
 				backgroundPosition: "center",
-				backgroundRepeat: "no-repeat"
+				backgroundRepeat: "no-repeat",
 			}}
 		>
 			{/* Particles Background */}
@@ -112,7 +112,7 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 			/>
 
 			{/* Main blur overlay covering entire component */}
-			<div 
+			<div
 				className="absolute inset-0 rounded-xl"
 				style={{
 					backdropFilter: "blur(24px) saturate(150%)",
@@ -126,10 +126,10 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 						0 8px 32px rgba(0,0,0,0.15),
 						inset 0 1px 0 rgba(255,255,255,0.25),
 						inset 0 -1px 0 rgba(255,255,255,0.15)
-					`
+					`,
 				}}
 			/>
-			
+
 			{/* Glass frame for carousel */}
 			<div className="relative p-2 md:p-4 lg:p-6 z-10">
 				{/* Clear viewing window for carousel */}
@@ -147,11 +147,14 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 					/>
 				</div>
 			</div>
-			
+
 			{/* Glass frame for text */}
 			<div className="relative p-2 md:p-4 lg:p-6 pb-2 z-10">
 				{/* Clear viewing window for text */}
-				<div id="splash" className="relative text-center bg-background/98 rounded-xl p-2 md:p-4 lg:p-6 ring-1 ring-white/40 shadow-2xl backdrop-blur-none">
+				<div
+					id="splash"
+					className="relative text-center bg-background/98 rounded-xl p-2 md:p-4 lg:p-6 ring-1 ring-white/40 shadow-2xl backdrop-blur-none"
+				>
 					{/* Inner shadow for depth */}
 					<div className="absolute inset-0 rounded-xl shadow-inner bg-gradient-to-br from-transparent via-transparent to-black/5" />
 					<div className="relative z-10">
@@ -162,7 +165,7 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 							</span>
 							<div className="w-12 h-px bg-gradient-to-r from-transparent via-primary to-transparent"></div>
 						</div>
-						
+
 						<h1 className="text-6xl font-black mb-3 tracking-tight">
 							<span className="bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
 								The
@@ -171,19 +174,20 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 								25th
 							</span>
 						</h1>
-						
+
 						<h2 className="text-2xl font-bold mb-6 text-muted-foreground/80 tracking-wide">
 							Put Your Best Foot{" "}
 							<span className="bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
 								Forward
 							</span>
 						</h2>
-						
+
 						<p className="text-lg text-muted-foreground/70 leading-relaxed max-w-2xl mx-auto">
-							Join us as we take a stroll down memory lane.
-							Each image tells a story of our incredible journey through time.
+							Join us as we take a stroll down memory lane. Each
+							image tells a story of our incredible journey
+							through time.
 						</p>
-						
+
 						<div className="flex items-center justify-center gap-2 mt-6 text-sm text-muted-foreground/60">
 							<div className="w-2 h-2 rounded-full bg-primary/60"></div>
 							<span className="tracking-wider">EST</span>
@@ -195,5 +199,5 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 				</div>
 			</div>
 		</div>
-	)
+	);
 }

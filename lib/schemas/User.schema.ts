@@ -1,8 +1,45 @@
-import { z } from "zod"
-import { MediaRefSchema, PydanticObjectIdSchema, UserTypeSchema } from "./common.schema"
-export const SocialHandlesSchema = z.object({ "twitter": z.union([z.string(), z.null()]).optional(), "github": z.union([z.string(), z.null()]).optional(), "linkedin": z.union([z.string(), z.null()]).optional(), "facebook": z.union([z.string(), z.null()]).optional(), "instagram": z.union([z.string(), z.null()]).optional(), "other": z.union([z.record(z.string(), z.unknown()), z.null()]).optional() })
+import { z } from "zod";
+import {
+	MediaRefSchema,
+	PydanticObjectIdSchema,
+	UserTypeSchema,
+} from "./common.schema";
+export const SocialHandlesSchema = z.object({
+	twitter: z.union([z.string(), z.null()]).optional(),
+	github: z.union([z.string(), z.null()]).optional(),
+	linkedin: z.union([z.string(), z.null()]).optional(),
+	facebook: z.union([z.string(), z.null()]).optional(),
+	instagram: z.union([z.string(), z.null()]).optional(),
+	other: z.union([z.record(z.string(), z.unknown()), z.null()]).optional(),
+});
 
-export const ProfileSchema = z.object({ "name": z.string(), "display_name": z.string(), "bio": z.union([z.string(), z.null()]).optional(), "avatar": z.union([MediaRefSchema, z.null()]).optional(), "dob": z.union([z.string().datetime({ offset: true }), z.null()]).optional(), "email": z.union([z.string(), z.null()]).optional(), "phone": z.union([z.string(), z.null()]).optional(), "address": z.union([z.string(), z.null()]).optional(), "email_public": z.boolean().default(false).optional(), "phone_public": z.boolean().default(false).optional(), "address_public": z.boolean().default(false).optional(), "likes": z.array(z.string()).default([]), "dislikes": z.array(z.string()).default([]), "social_handles": SocialHandlesSchema.optional(), "website": z.union([z.string().url().min(1).max(2083), z.null()]).optional(), "website_public": z.boolean().default(true), "metadata": z.union([z.record(z.string(), z.unknown()), z.null()]).optional() })
+export const ProfileSchema = z.object({
+	name: z.string(),
+	display_name: z.string(),
+	bio: z.union([z.string(), z.null()]).optional(),
+	avatar: z.union([MediaRefSchema, z.null()]).optional(),
+	dob: z.union([z.string().datetime({ offset: true }), z.null()]).optional(),
+	email: z.union([z.string(), z.null()]).optional(),
+	phone: z.union([z.string(), z.null()]).optional(),
+	address: z.union([z.string(), z.null()]).optional(),
+	email_public: z.boolean().default(false).optional(),
+	phone_public: z.boolean().default(false).optional(),
+	address_public: z.boolean().default(false).optional(),
+	likes: z.array(z.string()).default([]),
+	dislikes: z.array(z.string()).default([]),
+	social_handles: SocialHandlesSchema.optional(),
+	website: z.union([z.string().url().min(1).max(2083), z.null()]).optional(),
+	website_public: z.boolean().default(true),
+	metadata: z.union([z.record(z.string(), z.unknown()), z.null()]).optional(),
+});
 
-
-export default z.object({ "_id": z.union([PydanticObjectIdSchema, z.null()]).optional(), "username": z.string(), "password": z.string(), "profile": ProfileSchema, "created_at": z.string().datetime({ offset: true }).optional(), "updated_at": z.string().datetime({ offset: true }).optional(), "is_active": z.boolean().default(true), "user_type": UserTypeSchema })
+export default z.object({
+	_id: z.union([PydanticObjectIdSchema, z.null()]).optional(),
+	username: z.string(),
+	password: z.string(),
+	profile: ProfileSchema,
+	created_at: z.string().datetime({ offset: true }).optional(),
+	updated_at: z.string().datetime({ offset: true }).optional(),
+	is_active: z.boolean().default(true),
+	user_type: UserTypeSchema,
+});
