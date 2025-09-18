@@ -4,9 +4,9 @@ import CommentSchema from "@/lib/schemas/Comment.schema";
 
 export async function GET(
 	_req: Request,
-	{ params }: { params: { postId: string } }
+	context: { params: Promise<{ postId: string }> }
 ) {
-	const postId = params.postId;
+	const { postId } = await context.params;
 	let _id: ObjectId;
 	try {
 		_id = new ObjectId(postId);
@@ -28,12 +28,13 @@ export async function GET(
 
 export async function POST(
 	req: Request,
-	{ params }: { params: { postId: string } }
+	context: { params: Promise<{ postId: string }> }
 ) {
+	const { postId } = await context.params;
 	const body = await req.json();
 
 	// Force post_id from path param
-	body.post_id = params.postId;
+	body.post_id = postId;
 
 	const parsed = CommentSchema.safeParse(body);
 	if (!parsed.success) {
@@ -49,6 +50,7 @@ export async function POST(
 		author_id: new ObjectId(parsed.data.author_id as unknown as string),
 		created_at: new Date(),
 		reactions: [],
+		_id: undefined, // Ensure _id is not set explicitly
 	};
 
 	const result = await db.collection("comments").insertOne(doc);
