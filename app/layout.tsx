@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { AuthSessionProvider } from "@/components/auth/session-provider";
+import { ThemeProvider } from "@/components/theme/theme-provider";
+import { Navbar } from "@/components/navigation/navbar";
+import { cookies } from "next/headers";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -18,17 +21,37 @@ export const metadata: Metadata = {
 	description: "A journey through time",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	// SSR theme handling: read persisted theme cookie (set on client) so server markup matches client.
+	// next/headers cookies() in Next 15 returns a Plain object directly (or promise in edge); we safely await for compatibility.
+	const jar = await cookies();
+	const themeCookie = jar.get("theme")?.value;
+	const initialTheme =
+		themeCookie === "dark"
+			? "dark"
+			: themeCookie === "light"
+				? "light"
+				: undefined;
 	return (
-		<html lang="en">
+		<html
+			lang="en"
+			className={initialTheme}
+			suppressHydrationWarning
+			style={initialTheme ? { colorScheme: initialTheme } : undefined}
+		>
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+				className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
 			>
-				<AuthSessionProvider>{children}</AuthSessionProvider>
+				<ThemeProvider>
+					<AuthSessionProvider>
+						<Navbar />
+						{children}
+					</AuthSessionProvider>
+				</ThemeProvider>
 			</body>
 		</html>
 	);

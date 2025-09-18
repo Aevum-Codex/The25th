@@ -120,3 +120,24 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  /* Brand text outline: dual stroke technique for contrast on any backdrop */
+  .brand-outline-text {
+    @apply relative font-bold tracking-tight;
+    background: linear-gradient(90deg,var(--primary) 0%,color-mix(in oklch,var(--primary),transparent 35%) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    /* Crisp outline using layered shadows approximating stroke */
+    text-shadow:
+      0 0 0 var(--background), /* base stroke */
+      0 0 0.5px var(--background),
+      0 0 1px var(--background);
+  }
+  .dark .brand-outline-text {
+    /* In dark mode invert: outline uses foreground on darker gradient */
+    text-shadow:
+      0 0 0 var(--foreground),
+      0 0 0.5px var(--foreground),
+      0 0 1px var(--foreground);
+  }
+}
