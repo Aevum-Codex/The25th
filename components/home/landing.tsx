@@ -28,7 +28,7 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 			{/* Particles Background */}
 			<Particles
 				id="tsparticles"
-				className="absolute inset-0 z-0"
+				className="absolute inset-0 z-10 pointer-events-none"
 				options={{
 					background: {
 						color: {
@@ -68,7 +68,7 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 							color: "#ffffff",
 							distance: 120,
 							enable: true,
-							opacity: 0.1,
+							opacity: 0.3,
 							width: 1,
 						},
 						move: {
@@ -78,20 +78,20 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 								default: "bounce",
 							},
 							random: false,
-							speed: 0.8,
+							speed: 1.2,
 							straight: false,
 						},
 						number: {
 							density: {
 								enable: true,
 							},
-							value: 25,
+							value: 35,
 						},
 						opacity: {
-							value: 0.3,
+							value: 0.6,
 							animation: {
 								enable: true,
-								speed: 0.5,
+								speed: 0.8,
 								sync: false,
 							},
 						},
@@ -99,10 +99,10 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 							type: "circle",
 						},
 						size: {
-							value: { min: 1, max: 3 },
+							value: { min: 2, max: 4 },
 							animation: {
 								enable: true,
-								speed: 1,
+								speed: 1.5,
 								sync: false,
 							},
 						},
@@ -113,7 +113,7 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 
 			{/* Main blur overlay covering entire component */}
 			<div
-				className="absolute inset-0 rounded-xl"
+				className="absolute inset-0 rounded-xl z-5"
 				style={{
 					backdropFilter: "blur(24px) saturate(150%)",
 					background: `
@@ -131,7 +131,7 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 			/>
 
 			{/* Glass frame for carousel */}
-			<div className="relative p-2 md:p-4 lg:p-6 z-10">
+			<div className="relative p-2 md:p-4 lg:p-6 z-20">
 				{/* Clear viewing window for carousel */}
 				<div className="relative bg-background/98 rounded-xl p-2 md:p-4 lg:p-6 ring-1 ring-white/40 shadow-2xl backdrop-blur-none">
 					{/* Inner shadow for depth */}
@@ -149,7 +149,7 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 			</div>
 
 			{/* Glass frame for text */}
-			<div className="relative p-2 md:p-4 lg:p-6 pb-2 z-10">
+			<div className="relative p-2 md:p-4 lg:p-6 pb-2 z-20">
 				{/* Clear viewing window for text */}
 				<div
 					id="splash"
