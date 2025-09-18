@@ -30,6 +30,7 @@ const eslintConfig = [
 			"no-mixed-spaces-and-tabs": "error", // Prevent mixing spaces and tabs
 			quotes: ["error", "double"], // Enforce double quotes for strings
 			"jsx-quotes": ["error", "prefer-double"], // Enforce double quotes in JSX
+			"@typescript-eslint/no-explicit-any": "off", // Allow usage of 'any' type in TypeScript
 		},
 	},
 ];

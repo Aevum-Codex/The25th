@@ -2,32 +2,34 @@
 
 import Feed from "@/components/home/feed";
 import Landing from "@/components/home/landing";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { LoginForm } from "@/components/auth/login-form";
+import { LogoutButton } from "@/components/auth/logout-button";
+import { useSession } from "next-auth/react";
+import { Loader } from "@/components/ui/loader";
 
 export default function Home() {
-	// Dummy auth state for demonstration purposes
-	const [authenticated, setAuthenticated] = useState(false);
+	const { data: session, status } = useSession();
+	const loading = status === "loading";
 
 	return (
-		<main>
-			<h1 className="text-2xl font-bold">
-				The 25th{" "}
-				<Button
-					variant={authenticated ? "default" : "outline"}
-					id="dummy-auth-toggle"
-					onClick={() => setAuthenticated(!authenticated)}
-				>
-					{authenticated ? "Logout" : "Login"}
-				</Button>
-			</h1>
-			{authenticated ? (
+		<main className="space-y-6 p-4">
+			<header className="flex items-center justify-between">
+				<h1 className="text-2xl font-bold">The 25th</h1>
+				{session ? <LogoutButton /> : null}
+			</header>
+			{loading && <Loader text="Preparing your experience" />}
+			{!loading && session && (
 				<div id="feed-container">
 					<Feed />
 				</div>
-			) : (
-				<div id="landing-container w-full">
+			)}
+			{!loading && !session && (
+				<div className="space-y-8" id="landing-container">
 					<Landing />
+					<div>
+						<h2 className="text-lg font-semibold mb-2">Sign In</h2>
+						<LoginForm />
+					</div>
 				</div>
 			)}
 		</main>

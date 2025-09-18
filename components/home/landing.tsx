@@ -11,6 +11,60 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 		imageLinks.push(`${imageGenerationAPI}?random=${i}&sig=${i}`);
 	}
 
+	// Neon glow particle configuration (distinct from loader)
+	const particlesOptions = {
+		background: { color: { value: "transparent" } },
+		fpsLimit: 60,
+		interactivity: {
+			events: {
+				onHover: { enable: true, mode: "bubble" },
+				onClick: { enable: true, mode: "push" },
+				resize: { enable: true },
+			},
+			modes: {
+				bubble: {
+					distance: 140,
+					duration: 2,
+					opacity: 0.95,
+					size: 8,
+				},
+				push: { quantity: 3 },
+			},
+		},
+		particles: {
+			number: { value: 55, density: { enable: true } },
+			color: {
+				value: [
+					"#60a5fa",
+					"#818cf8",
+					"#c084fc",
+					"#f472b6",
+					"#fb7185",
+					"#fbbf24",
+				] as string[],
+			},
+			shape: { type: "circle" },
+			opacity: {
+				value: 0.55,
+				animation: { enable: true, speed: 0.6, sync: false },
+			},
+			size: {
+				value: { min: 2, max: 6 },
+				animation: { enable: true, speed: 2, sync: false },
+			},
+			links: { enable: false },
+			move: {
+				enable: true,
+				speed: 0.9,
+				// direction omitted to satisfy type narrowing (default random/none)
+				random: true,
+				straight: false,
+				// outModes left default for type compatibility
+			},
+		},
+		detectRetina: true,
+	};
+
 	return (
 		<div
 			data-slot="landing"
@@ -28,87 +82,9 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 			{/* Particles Background */}
 			<Particles
 				id="tsparticles"
-				className="absolute inset-0 z-10 pointer-events-none"
-				options={{
-					background: {
-						color: {
-							value: "transparent",
-						},
-					},
-					fpsLimit: 60,
-					interactivity: {
-						events: {
-							onClick: {
-								enable: true,
-								mode: "push",
-							},
-							onHover: {
-								enable: true,
-								mode: "repulse",
-							},
-							resize: {
-								enable: true,
-							},
-						},
-						modes: {
-							push: {
-								quantity: 2,
-							},
-							repulse: {
-								distance: 80,
-								duration: 0.4,
-							},
-						},
-					},
-					particles: {
-						color: {
-							value: ["#3b82f6", "#8b5cf6", "#f59e0b", "#ef4444"],
-						},
-						links: {
-							color: "#ffffff",
-							distance: 120,
-							enable: true,
-							opacity: 0.3,
-							width: 1,
-						},
-						move: {
-							direction: "none",
-							enable: true,
-							outModes: {
-								default: "bounce",
-							},
-							random: false,
-							speed: 1.2,
-							straight: false,
-						},
-						number: {
-							density: {
-								enable: true,
-							},
-							value: 35,
-						},
-						opacity: {
-							value: 0.6,
-							animation: {
-								enable: true,
-								speed: 0.8,
-								sync: false,
-							},
-						},
-						shape: {
-							type: "circle",
-						},
-						size: {
-							value: { min: 2, max: 4 },
-							animation: {
-								enable: true,
-								speed: 1.5,
-								sync: false,
-							},
-						},
-					},
-					detectRetina: true,
-				}}
+				className="absolute inset-0 z-10 pointer-events-none mix-blend-screen opacity-80"
+				style={{ filter: "blur(1.2px) brightness(1.3) saturate(1.5)" }}
+				options={particlesOptions}
 			/>
 
 			{/* Main blur overlay covering entire component */}

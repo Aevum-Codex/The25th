@@ -1,4 +1,6 @@
 import clientPromise from "@/lib/mongo";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import { ObjectId } from "mongodb";
 import CommentSchema from "@/lib/schemas/Comment.schema";
 
@@ -6,6 +8,8 @@ export async function GET(
 	_req: Request,
 	context: { params: Promise<{ postId: string }> }
 ) {
+	const session = await getServerSession(authOptions);
+	if (!session) return new Response("Unauthorized", { status: 401 });
 	const { postId } = await context.params;
 	let _id: ObjectId;
 	try {
@@ -30,6 +34,8 @@ export async function POST(
 	req: Request,
 	context: { params: Promise<{ postId: string }> }
 ) {
+	const session = await getServerSession(authOptions);
+	if (!session) return new Response("Unauthorized", { status: 401 });
 	const { postId } = await context.params;
 	const body = await req.json();
 

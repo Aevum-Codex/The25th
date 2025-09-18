@@ -1,9 +1,13 @@
 import clientPromise from "@/lib/mongo";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import { ObjectId } from "mongodb";
 import { z } from "zod";
 import PostSchema from "@/lib/schemas/Post.schema";
 
 export async function GET() {
+	const session = await getServerSession(authOptions);
+	if (!session) return new Response("Unauthorized", { status: 401 });
 	const client = await clientPromise;
 	const db = client.db(process.env.DB_NAME);
 	const items = await db
@@ -17,6 +21,8 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+	const session = await getServerSession(authOptions);
+	if (!session) return new Response("Unauthorized", { status: 401 });
 	const body = await req.json();
 	const parsed = PostSchema.safeParse(body);
 
@@ -31,7 +37,7 @@ export async function POST(req: Request) {
 	const db = client.db(process.env.DB_NAME);
 
 	// Convert author_id to ObjectId if your schema holds object ids as strings client-side
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 	function getAuthorId(data: any): ObjectId {
 		return typeof data.author_id === "string"
 			? new ObjectId(data.author_id)
@@ -40,7 +46,6 @@ export async function POST(req: Request) {
 
 	const authorId = getAuthorId(data);
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const doc: any = {
 		...data,
 		author_id: authorId,
