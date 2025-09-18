@@ -1,7 +1,8 @@
 // scripts/zod-gen.ts
-import { execSync } from "child_process";
-import { readdirSync } from "fs";
+import { readdirSync, readFileSync } from "fs";
 import { join, basename } from "path";
+import { convertJSONSchemaToZod } from "./json-to-zod-converter";
+import { writeFileSync } from "fs";
 
 function main() {
   const inputDir = "beanie_schemas";
@@ -15,9 +16,22 @@ function main() {
     const outputPath = join(outputDir, `${base}.schema.ts`);
 
     console.log(`⏳ Generating Zod schema for ${file} -> ${outputPath}`);
-    execSync(`json-schema-to-zod -i "${inputPath}" -o "${outputPath}"`, {
-      stdio: "inherit"
-    });
+    
+    try {
+      // Read and parse JSON schema
+      const jsonContent = readFileSync(inputPath, 'utf-8');
+      const jsonSchema = JSON.parse(jsonContent);
+      
+      // Convert to Zod using our custom converter
+      const zodCode = convertJSONSchemaToZod(jsonSchema);
+      
+      // Write the output
+      writeFileSync(outputPath, zodCode);
+      
+      console.log(`✅ Generated ${outputPath}`);
+    } catch (error) {
+      console.error(`❌ Error processing ${file}:`, error);
+    }
   }
 
   console.log("✅ Zod schemas generated successfully!");
