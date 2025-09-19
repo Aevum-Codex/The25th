@@ -69,7 +69,7 @@ export default function Landing({ className }: React.ComponentProps<"div">) {
 		<div
 			data-slot="landing"
 			className={cn(
-				"relative text-foreground h-min-[1vh] flex flex-col gap-4 border border-white/20 p-2 md:p-6 lg:p-12 shadow-2xl overflow-hidden",
+				"relative text-foreground h-min-[1vh] flex flex-col gap-4 border border-white/20 p-2 md:p-6 lg:p-12 shadow-2xl overflow-hidden rounded-xl",
 				className
 			)}
 			style={{

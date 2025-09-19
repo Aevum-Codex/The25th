@@ -10,7 +10,23 @@ export const dynamic = "force-dynamic"; // always show freshest roster
 export default async function People() {
 	const session = await getServerSession(authOptions);
 	if (!session) redirect("/");
-	const users = await getUsers();
+
+	async function fetchUsers() {
+		const users = await getUsers();
+		users.forEach((u, index) => {
+			// Use stable seed based on username to avoid hydration mismatches
+			const seed = u.username
+				.split("")
+				.reduce(
+					(acc: number, char: string) => acc + char.charCodeAt(0),
+					0
+				);
+			u.profile.avatar.url = `https://picsum.photos/1920/1080?blur&random=${seed + index}`;
+		});
+		return users;
+	}
+
+	const users = await fetchUsers();
 	return (
 		<main className="relative mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 pb-24 pt-8 lg:px-8">
 			<header className="relative z-10 flex flex-col gap-3">
@@ -25,8 +41,8 @@ export default async function People() {
 					{["student", "teacher", "other"].map((t) => (
 						<Link
 							key={t}
-							href={`/people/name/${t}`}
-							className="rounded-full border border-border/60 bg-gradient-to-r from-background to-background/40 px-4 py-1.5 text-xs font-medium uppercase tracking-wide text-foreground/80 transition hover:from-amber-500/10 hover:to-pink-500/10 hover:text-foreground"
+							href={`/people/${t}`}
+							className="rounded-full border border-border/60 bg-card/60 px-4 py-1.5 text-xs font-medium uppercase tracking-wide text-card-foreground/80 transition hover:bg-accent hover:text-accent-foreground"
 						>
 							{t}
 						</Link>

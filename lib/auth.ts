@@ -122,7 +122,6 @@ export const authOptions: AuthOptions = {
 				token.username = (user as any).username;
 				token.user_type = (user as any).user_type;
 			}
-			console.log("jwt callback", { token });
 			return token;
 		},
 		async session({ session, token }) {
@@ -131,7 +130,6 @@ export const authOptions: AuthOptions = {
 				session.user.username = token.username as string;
 				session.user.user_type = token.user_type as string;
 			}
-			console.log("session callback", { session, token });
 			return session;
 		},
 	},

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ParticlesSparkle } from "@/components/theme/particles-sparkle";
 import { useState } from "react";
 
-export default function UserProfileCard({
+export default function ProfileCard({
 	user,
 	isSelf,
 }: {

@@ -11,9 +11,9 @@ const valid = ["student", "teacher", "other"] as const;
 export default async function PeopleByType({
 	params,
 }: {
-	params: { userType: string };
+	params: Promise<{ userType: string }>;
 }) {
-	const { userType } = params;
+	const { userType } = await params;
 	if (!valid.includes(userType as any)) notFound();
 	const session = await getServerSession(authOptions);
 	if (!session) redirect("/");
