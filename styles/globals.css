@@ -129,13 +129,6 @@
     -webkit-background-clip: text; background-clip: text; color: transparent;
     /* Crisp outline using layered shadows approximating stroke */
     text-shadow:
-      0 0 0 var(--background), /* base stroke */
-      0 0 0.5px var(--background),
-      0 0 1px var(--background);
-  }
-  .dark .brand-outline-text {
-    /* In dark mode invert: outline uses foreground on darker gradient */
-    text-shadow:
       0 0 0 var(--foreground),
       0 0 0.5px var(--foreground),
       0 0 1px var(--foreground);
